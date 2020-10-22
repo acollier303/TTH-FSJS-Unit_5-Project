@@ -6,9 +6,17 @@ const card = document.querySelectorAll('.card');
 // ------------------------------------------
 //  FETCH FUNCTIONS
 // ------------------------------------------
-fetch('https://randomuser.me/api/?results=12')
-    .then(response => response.json())
+
+document.addEventListener('DOMContentLoaded', () => {
+    function fetchData (url) {
+        return fetch(url)
+            .then(res => res.json())
+    }
+
+    fetchData('https://randomuser.me/api/?results=12')
     .then(data => generateProfile(data.results))
+    .catch(err => console.log(err));
+});
 
 // ------------------------------------------
 //  HELPER FUNCTIONS
@@ -16,7 +24,7 @@ fetch('https://randomuser.me/api/?results=12')
 
 // Generate Profile DOM elements from fetch data
 function generateProfile(data){
-    const test = data.map(person =>  `
+    const profileHtml = data.map(person =>  `
         <div class="card">
             <div class="card-img-container">
                 <img class="card-img" src="${person.picture.thumbnail}" alt="profile picture">
@@ -27,9 +35,15 @@ function generateProfile(data){
                 <p class="card-text cap">${person.location.city}, ${person.location.state}s</p>
             </div>
         </div>`).join('');
-
-gallery.innerHTML = test;
- }
+    gallery.innerHTML = profileHtml;
+    
+    gallery.addEventListener('click', (e) => {
+        if (e.target.className === 'card'){
+            generateModal(data);
+            console.log('working');
+        };
+    });
+}
 
 // -------Generate ProfileOverlay  DOM element --------
 function generateModal(data){
@@ -48,17 +62,21 @@ function generateModal(data){
             <p class="modal-text">Birthday: 10/21/2015</p>
         </div>
     </div>`).join('');
-
+    modal.innerHTML = test2;
+    return modal;
 }
 
 // ------------------------------------------
 //  EVENT LISTENERS
 // ------------------------------------------
- card.addEventListener('click', console.log('working'));
- 
+// function cardListener(){
+//     gallery.addEventListener('click', (e) => {
+//         if (e.target.className === 'card'){
+//             console.log(`${person.name.last}`);
+//         };
+//     });
+// };
 
-//console.log(card);
-  
 // ------------------------------------------
 //  POST DATA
 // ------------------------------------------
