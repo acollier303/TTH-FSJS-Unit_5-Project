@@ -1,7 +1,7 @@
 const gallery = document.getElementById('gallery');
 const search = document.querySelector('search-container');
 const modal = document.getElementsByClassName('modal');
-const card = document.querySelectorAll('.card');
+const card = document.querySelectorAll('card');
 
 // ------------------------------------------
 //  FETCH FUNCTIONS
@@ -37,10 +37,9 @@ function generateProfile(data){
         </div>`).join('');
     gallery.innerHTML = profileHtml;
     
-    //---- generate Modal ---
-
+    //---------- Generate Modal -----------
     const modalContainer = document.getElementsByClassName('modal-container');
-    const modalHtml = data.map(person =>`
+    const modalHtml = data.map(person => `
     <div class="modal-container">
     <div class="modal">
         <button type="button" id="modal-close-btn" class="modal-close-btn"><strong>X</strong></button>
@@ -52,15 +51,15 @@ function generateProfile(data){
             <hr>
             <p class="modal-text">${person.phone}</p>
             <p class="modal-text">${person.location.street.number} ${person.location.street.name}, ${person.location.city}, ${person.location.state}  ${person.location.postcode}</p>
-            <p class="modal-text">Birthday: 10/21/2015</p>
+            <p class="modal-text">Birthday: ${person.phone}</p>
         </div>
     </div>`).join('');
     modal.innerHTML = modalHtml;
 
-    //--- Event Listener ---
+    //------------ Event Listener -----------------
     gallery.addEventListener('click', (e) => {
             console.log(e.target);
-            modalContainer.style.display = 'block';
+            //modalContainer.style.display = 'block';
     });
 }
 
