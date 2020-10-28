@@ -37,17 +37,10 @@ function generateProfile(data){
         </div>`).join('');
     gallery.innerHTML = profileHtml;
     
-    gallery.addEventListener('click', (e) => {
-        if (e.target.className === 'card'){
-            generateModal(data);
-            console.log('working');
-        };
-    });
-}
+    //---- generate Modal ---
 
-// -------Generate ProfileOverlay  DOM element --------
-function generateModal(data){
-    const test2 = data.map(person =>`
+    const modalContainer = document.getElementsByClassName('modal-container');
+    const modalHtml = data.map(person =>`
     <div class="modal-container">
     <div class="modal">
         <button type="button" id="modal-close-btn" class="modal-close-btn"><strong>X</strong></button>
@@ -62,9 +55,36 @@ function generateModal(data){
             <p class="modal-text">Birthday: 10/21/2015</p>
         </div>
     </div>`).join('');
-    modal.innerHTML = test2;
-    return modal;
+    modal.innerHTML = modalHtml;
+
+    //--- Event Listener ---
+    gallery.addEventListener('click', (e) => {
+            console.log(e.target);
+            modalContainer.style.display = 'block';
+    });
 }
+
+// -------Generate ProfileOverlay  DOM element --------
+
+// function generateModal(data){
+//     const modalContainer = document.getElementsByClassName('modal-container');
+//     const modalHtml = data.map(person =>`
+//     <div class="modal-container">
+//     <div class="modal">
+//         <button type="button" id="modal-close-btn" class="modal-close-btn"><strong>X</strong></button>
+//         <div class="modal-info-container">
+//             <img class="modal-img" src="${person.picture.thumbnail}" alt="profile picture">
+//             <h3 id="name" class="modal-name cap">${person.name.first} ${person.name.last}</h3>
+//             <p class="modal-text">${person.email}</p>
+//             <p class="modal-text cap">${person.location.city}</p>
+//             <hr>
+//             <p class="modal-text">${person.phone}</p>
+//             <p class="modal-text">${person.location.street.number} ${person.location.street.name}, ${person.location.city}, ${person.location.state}  ${person.location.postcode}</p>
+//             <p class="modal-text">Birthday: 10/21/2015</p>
+//         </div>
+//     </div>`).join('');
+//     modal.innerHTML = modalHtml;
+// }
 
 // ------------------------------------------
 //  EVENT LISTENERS
