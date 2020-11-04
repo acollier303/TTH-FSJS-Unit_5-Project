@@ -7,7 +7,7 @@ const search = document.querySelector('search-container');
 const modal = document.getElementsByClassName('modal-container');
 const card = document.querySelectorAll('card');
 const modals = document.createElement('DIV');
-
+const employees = [];
 
 // ------------------------------------------
 //  FETCH FUNCTION
@@ -20,20 +20,20 @@ document.addEventListener('DOMContentLoaded', () => {
             .then(res => res.json())
     }
     // Fetch users from api
-    fetchData('https://randomuser.me/api/?results=12')
+    fetchData('https://randomuser.me/api/?results=12&nat=us')
     .then(data => generateProfile(data.results))
     .then(cardListener())
     .catch(err => console.log(err));
 });
 
 // ------------------------------------------
-//  HELPER FUNCTIONS
+//  Generate Card & Modal FUNCTIONS
 // ------------------------------------------
 
 // ---- Employee Profile Card ----
 function generateProfile(data){
-    const profileHtml = data.map(person =>  `
-        <div class="card">
+    const profileHtml = data.map(person => `
+        <div id=1 class="card">
             <div class="card-img-container">
                 <img class="card-img" src="${person.picture.thumbnail}" alt="profile picture">
             </div>
@@ -70,9 +70,9 @@ function generateModal(data){
                 </div>
             </div>
         </div>`).join('');
-    modals.innerHTML = modalHtml;
+    modals.innerHTML = modalHtml; 
 
-    //console.log(modalHtml)
+   // console.log(modals)
 }
 
 
@@ -81,10 +81,8 @@ function generateModal(data){
 // ------------------------------------------
 function cardListener(){
     gallery.addEventListener('click', (e) => {
-        console.log(e.target);
+        console.log(`card: ${card}`);
+        console.log(`modal: ${modals}`);
+        modal.setAttribute('display', '');
     });
 };
-
-// ------------------------------------------
-//  POST DATA
-// ------------------------------------------
