@@ -5,9 +5,8 @@
 const gallery = document.getElementById('gallery');
 const search = document.querySelector('search-container');
 const modal = document.getElementsByClassName('modal-container');
-const card = document.querySelectorAll('card');
+const card = document.querySelectorAll('.card');
 const modals = document.createElement('DIV');
-const employees = [];
 
 // ------------------------------------------
 //  FETCH FUNCTION
@@ -33,7 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
 // ---- Employee Profile Card ----
 function generateProfile(data){
     const profileHtml = data.map(person => `
-        <div id=1 class="card">
+        <div class="card">
             <div class="card-img-container">
                 <img class="card-img" src="${person.picture.thumbnail}" alt="profile picture">
             </div>
@@ -43,13 +42,10 @@ function generateProfile(data){
                 <p class="card-text cap">${person.location.city}, ${person.location.state}s</p>
             </div>
         </div>`).join('');
-
     gallery.innerHTML = profileHtml;
     generateModal(data);
     gallery.appendChild(modals);
-    //console.log(gallery.innerHTML);
 }
-
 
 // ------- Employee Modal --------
 function generateModal(data){
@@ -82,7 +78,6 @@ function generateModal(data){
 function cardListener(){
     gallery.addEventListener('click', (e) => {
         console.log(`card: ${card}`);
-        console.log(`modal: ${modals}`);
-        modal.setAttribute('display', '');
+        console.log(`modal: ${modals.innerHTML}`);
     });
 };
