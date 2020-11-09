@@ -7,23 +7,39 @@ const search = document.querySelector('search-container');
 const modal = document.getElementsByClassName('modal-container');
 const card = document.querySelectorAll('.card');
 const modals = document.createElement('DIV');
+const randomPerson = 'https://randomuser.me/api/?results=12&nat=us'
 
 // ------------------------------------------
 //  FETCH FUNCTION
 // ------------------------------------------
 
 // Event listener for Document loaded
-document.addEventListener('DOMContentLoaded', () => {
-    function fetchData (url) {
-        return fetch(url)
-            .then(res => res.json())
-    }
-    // Fetch users from api
-    fetchData('https://randomuser.me/api/?results=12&nat=us')
-    .then(data => generateProfile(data.results))
-    .then(cardListener())
-    .catch(err => console.log(err));
-});
+// document.addEventListener('DOMContentLoaded', () => {
+//     function fetchData (url) {
+//         return fetch(url)
+//             .then(res => res.json())
+//     }
+//     // Fetch users from api
+//     fetchData('https://randomuser.me/api/?results=12&nat=us')
+//         .then(data => generateProfile(data.results))
+//         .then(cardListener())
+//         .catch(err => console.log(err));
+// });
+
+// Handle Fetch Request
+
+async function getEmployees(url)  {
+    const employeesResponse = await fetch(url);
+    const employeesJSON = await employeesResponse.json();
+
+    // const employeeProfiles = employeesJSON.map( async person => {
+    //     return {...employeesJSON};
+    // });
+    // return Promise.all(employeeProfiles);
+}
+
+console.log(getEmployees(randomPerson));
+
 
 // ------------------------------------------
 //  Generate Card & Modal FUNCTIONS
@@ -43,7 +59,6 @@ function generateProfile(data){
             </div>
         </div>`).join('');
     gallery.innerHTML = profileHtml;
-    generateModal(data);
     gallery.appendChild(modals);
 }
 
@@ -76,8 +91,9 @@ function generateModal(data){
 //  EVENT LISTENERS
 // ------------------------------------------
 function cardListener(){
-    gallery.addEventListener('click', (e) => {
-        console.log(`card: ${card}`);
-        console.log(`modal: ${modals.innerHTML}`);
+    gallery.addEventListener('click', async (e) => {
+        const employees = await getEmployees(randomPerson);
+        console.log(employees);
+
     });
 };
